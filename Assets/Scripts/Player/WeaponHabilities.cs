@@ -13,6 +13,7 @@ public class WeaponHabilities : MonoBehaviour
     public GameObject currentWeapon;
     public GameObject playerObj;
     public GameObject player;
+    public Canvas aimCanvas;
 
     [Header("Camera")]
     public CinemachineCamera camera3rdperson;
@@ -41,6 +42,16 @@ public class WeaponHabilities : MonoBehaviour
             {
                 playerObj.transform.rotation = Quaternion.Euler(0, cameraAiming.transform.rotation.eulerAngles.y, 0);
             }
+        }
+
+        //if the camera is aiming, enables the aimCanvas
+        if (cameraAiming.Priority == 1)
+        {
+            aimCanvas.enabled = true;
+        }
+        else
+        {
+            aimCanvas.enabled = false;
         }
     }
 
