@@ -21,11 +21,8 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         EquipWeapon(currentWeaponIndex);
-        //Disable all weapons except the first one
-        for (int i = 1; i < weapons.Length; i++)
-        {
-            weapons[i].SetActive(false);
-        }
+        weapons[1].SetActive(false);
+        weapons[2].SetActive(false);
     }
 
     private void Update()

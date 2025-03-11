@@ -101,14 +101,12 @@ public class WeaponHabilities : MonoBehaviour
             //Camera aiming
             cameraAiming.Priority = 1;
             camera3rdperson.Priority = 0;
-            Debug.Log("Aiming");
         }
         else if (Input.GetMouseButtonUp(1))
         {
             //Camera 3rd person
             camera3rdperson.Priority = 1;
             cameraAiming.Priority = 0;
-            Debug.Log("Not Aiming");
         }
 
         if (gamepad != null)
