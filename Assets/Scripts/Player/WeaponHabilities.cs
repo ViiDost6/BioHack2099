@@ -13,6 +13,7 @@ public class WeaponHabilities : MonoBehaviour
     public GameObject currentWeapon;
     public GameObject playerObj;
     public GameObject player;
+    public Animator animator;
     public Canvas aimCanvas;
 
     [Header("Camera")]

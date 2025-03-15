@@ -11,6 +11,7 @@ public class WeaponManager : MonoBehaviour
     public float weaponSwitchTime = 0.5f;
     public GameObject playerObj;
     public GameObject player;
+    public Animator animator;
 
 
     [Header("Keybinds")]
@@ -77,6 +78,9 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().jumpForce = 5;
             player.GetComponent<PlayerMovement>().walkSpeed = 6;
             player.GetComponent<PlayerMovement>().sprintSpeed = 7;
+            animator.SetBool("GreatSword", true);
+            animator.SetBool("Rapier", false);
+            animator.SetBool("Gun", false);
         }
         //Current weapon Rapier
         if (currentWeaponIndex == 1)
@@ -85,6 +89,9 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().jumpForce = 7;
             player.GetComponent<PlayerMovement>().walkSpeed = 7;
             player.GetComponent<PlayerMovement>().sprintSpeed = 9;
+            animator.SetBool("GreatSword", false);
+            animator.SetBool("Rapier", true);
+            animator.SetBool("Gun", false);
         }
         //Current weapon gun
         if (currentWeaponIndex == 2)
@@ -94,6 +101,9 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().isDoubleJump = true;
             player.GetComponent<PlayerMovement>().walkSpeed = 9;
             player.GetComponent<PlayerMovement>().sprintSpeed = 10;
+            animator.SetBool("GreatSword", false);
+            animator.SetBool("Rapier", false);
+            animator.SetBool("Gun", true);
         }
         StartCoroutine(EquipWeapon(currentWeaponIndex));
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     public Rigidbody rb;
+    public Animator animator;
 
     private void Start()
     {
@@ -46,22 +48,24 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
         walkSpeed = moveSpeed;
         sprintSpeed = 7f;
+        animator.SetBool("GreatSword", true);
     }
 
     private void Update()
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
-        Debug.Log(grounded);
 
         MyInput();
         SpeedControl();
         StateHandler();
+        
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
+        Animate(rb.linearVelocity);
     }
 
     private void MyInput()
@@ -76,9 +80,9 @@ public class PlayerMovement : MonoBehaviour
             isDoubleJump = false;
             readyToJump = false;
             Jump();
-
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
         if ((Input.GetKeyDown(KeyCode.LeftShift) || (gamepad != null && gamepad.leftStickButton.wasPressedThisFrame)) && grounded && !isSprinting)
         {
             isSprinting = true;
@@ -88,6 +92,15 @@ public class PlayerMovement : MonoBehaviour
         {
             isSprinting = false;
             moveSpeed = walkSpeed;
+        }
+        if (Input.GetKeyDown(KeyCode.F) && grounded && moveSpeed == 0)
+        {
+ 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -143,5 +156,16 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void Animate(Vector2 input)
+    {
+        float targetHorizonal = Math.Abs(rb.linearVelocity.x);
+        float targetVertical = Math.Abs(rb.linearVelocity.z);
+
+        animator.SetFloat("Direction", targetHorizonal);
+        animator.SetFloat("Speed", targetVertical);
+
+        
     }
 }
