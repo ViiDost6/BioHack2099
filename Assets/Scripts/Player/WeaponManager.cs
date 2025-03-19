@@ -18,6 +18,8 @@ public class WeaponManager : MonoBehaviour
     //Keyboard keys for weapon switching
     public KeyCode lastWeaponKey = KeyCode.Q;
     public KeyCode nextWeaponKey = KeyCode.E;
+    //indicates if the player can switch weapons now
+    public bool canSwitch = true;
     
     private void Start()
     {
@@ -30,27 +32,42 @@ public class WeaponManager : MonoBehaviour
     {
         var gamepad = Gamepad.current;
 
-        //Switch weapons with keyboard keys
-        if (Input.GetKeyDown(lastWeaponKey))
+        //the player cant switch weapons while aiming or jumping
+        if (gameObject.GetComponent<WeaponHabilities>().isAiming || !player.GetComponent<PlayerMovement>().grounded)
         {
-            SwitchWeapon(-1);
+            canSwitch = false;
         }
-        if (Input.GetKeyDown(nextWeaponKey))
+        else
         {
-            SwitchWeapon(1);
+            canSwitch = true;
         }
-        //Switch weapons with gamepad buttons
-        if (gamepad != null)
+
+        //allows weapon switching
+        if (canSwitch)
         {
-            if (gamepad.leftShoulder.wasPressedThisFrame)
+            //Switch weapons with keyboard keys
+            if (Input.GetKeyDown(lastWeaponKey))
             {
                 SwitchWeapon(-1);
             }
-            if (gamepad.rightShoulder.wasPressedThisFrame)
+            if (Input.GetKeyDown(nextWeaponKey))
             {
                 SwitchWeapon(1);
             }
+            //Switch weapons with gamepad buttons
+            if (gamepad != null)
+            {
+                if (gamepad.leftShoulder.wasPressedThisFrame)
+                {
+                    SwitchWeapon(-1);
+                }
+                if (gamepad.rightShoulder.wasPressedThisFrame)
+                {
+                    SwitchWeapon(1);
+                }
+            }
         }
+        
 
         //reloads double jump
         if (currentWeaponIndex == 2 && player.GetComponent<PlayerMovement>().grounded)

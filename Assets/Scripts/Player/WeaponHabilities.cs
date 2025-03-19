@@ -19,6 +19,7 @@ public class WeaponHabilities : MonoBehaviour
     [Header("Camera")]
     public CinemachineCamera camera3rdperson;
     public CinemachineCamera cameraAiming;
+    public bool isAiming;
 
     private void Start()
     {
@@ -102,12 +103,16 @@ public class WeaponHabilities : MonoBehaviour
             //Camera aiming
             cameraAiming.Priority = 1;
             camera3rdperson.Priority = 0;
+            animator.SetBool("Aim", true);
+            isAiming = true;
         }
         else if (Input.GetMouseButtonUp(1))
         {
             //Camera 3rd person
             camera3rdperson.Priority = 1;
             cameraAiming.Priority = 0;
+            animator.SetBool("Aim", false);
+            isAiming = false;
         }
 
         if (gamepad != null)
