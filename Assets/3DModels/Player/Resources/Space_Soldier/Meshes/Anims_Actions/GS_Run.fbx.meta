@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ebb581276c0f2b14484a839afef56975
+guid: 4ebb3ffe48901ea4b9342b51dd941b69
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -35,19 +35,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: GS_Jump
+      name: GS_Run
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 27
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

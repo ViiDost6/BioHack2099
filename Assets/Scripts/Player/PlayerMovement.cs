@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using Unity.VisualScripting;
 using System;
+using Unity.Mathematics;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        animator.SetBool("Jump", !grounded);
 
         MyInput();
         SpeedControl();
@@ -65,7 +67,9 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-        Animate(rb.linearVelocity);
+        //Recibe la velocidad en x y z como absoutos en un vector2
+        Vector2 input = new Vector2(horizontalInput, verticalInput);
+        Animate(input);
     }
 
     private void MyInput()
@@ -86,11 +90,13 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.LeftShift) || (gamepad != null && gamepad.leftStickButton.wasPressedThisFrame)) && grounded && !isSprinting)
         {
             isSprinting = true;
+            animator.SetBool("Sprint", true);
             moveSpeed = sprintSpeed;
         }
         if ((Input.GetKeyUp(KeyCode.LeftShift) || (gamepad != null && gamepad.leftStickButton.wasReleasedThisFrame)) && grounded && isSprinting)
         {
             isSprinting = false;
+            animator.SetBool("Sprint", false);
             moveSpeed = walkSpeed;
         }
         if (Input.GetKeyDown(KeyCode.F) && grounded && moveSpeed == 0)
@@ -160,12 +166,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Animate(Vector2 input)
     {
-        float targetHorizonal = Math.Abs(rb.linearVelocity.x);
-        float targetVertical = Math.Abs(rb.linearVelocity.z);
+        //suaviza el paso de un valor a otro
+        float targetHorizonal = Mathf.Lerp(animator.GetFloat("Direction"), horizontalInput, Time.deltaTime * 10f);
+        float targetVertical = Mathf.Lerp(animator.GetFloat("Speed"), verticalInput, Time.deltaTime * 10f);
 
         animator.SetFloat("Direction", targetHorizonal);
         animator.SetFloat("Speed", targetVertical);
-
-        
     }
 }
