@@ -14,6 +14,7 @@ public class WeaponHabilities : MonoBehaviour
     public GameObject playerObj;
     public GameObject player;
     public Animator animator;
+    private AnimatorStateInfo stateInfo;
     public Canvas aimCanvas;
 
     [Header("Camera")]
@@ -24,6 +25,7 @@ public class WeaponHabilities : MonoBehaviour
     private void Start()
     {
         currentWeaponIndex = weaponManager.GetComponent<WeaponManager>().currentWeaponIndex;
+        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
     }
 
     private void Update()
@@ -32,6 +34,29 @@ public class WeaponHabilities : MonoBehaviour
         if (currentWeaponIndex == 0)
         {
             GreatSwordHabilities();
+
+            //Block manager
+            if (Input.GetMouseButtonUp(1))
+            {
+                animator.SetBool("Block", false);
+            }
+
+            //Combat manager
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (stateInfo.IsName("GS_Slash") && stateInfo.normalizedTime < 0.9f)
+                {
+                    animator.SetInteger("Hit", 2);
+                }
+                else if (stateInfo.IsName("GS_Slash2") && stateInfo.normalizedTime < 0.9f)
+                {
+                    animator.SetInteger("Hit", 3);
+                }
+            }
+            if (stateInfo.normalizedTime >= 0.9f && (stateInfo.IsName("GS_Slash") || stateInfo.IsName("GS_Slash2") || stateInfo.IsName("GS_Slash3")))
+            {
+                animator.SetInteger("Hit", 0);
+            }
         }
         else if (currentWeaponIndex == 1)
         {
@@ -82,7 +107,24 @@ public class WeaponHabilities : MonoBehaviour
     //This method is called when the player switches to the GreatSword
     public void GreatSwordHabilities()
     {
+        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
         //GreatSword habilities
+        if (player.GetComponent<PlayerMovement>().grounded && stateInfo.IsName("GS_Walk") && animator.GetFloat("Speed") <= 0.1f && animator.GetFloat("Direction") <= 0.1f)
+        {
+            //makes the player able to block while holding right mouse click
+            if (Input.GetMouseButton(1))
+            {
+                animator.SetBool("Block", true);
+                Debug.Log("Block");
+            }
+            //makes the player able to attack
+            if (Input.GetMouseButtonDown(0))
+            {
+                animator.SetInteger("Hit", 1);
+                Debug.Log("Attack");
+            }
+        }
     }
 
     //This method is called when the player switches to the Rapier

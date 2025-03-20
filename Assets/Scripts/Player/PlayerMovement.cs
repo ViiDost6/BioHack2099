@@ -131,6 +131,12 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
+        //blocks movement while blocking and attacking
+        if (animator.GetBool("Block") || animator.GetInteger("Hit") != 0)
+        {
+            moveDirection = Vector3.zero;
+        }
+
         // on ground
         if(grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);

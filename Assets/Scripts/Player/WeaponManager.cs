@@ -33,7 +33,9 @@ public class WeaponManager : MonoBehaviour
         var gamepad = Gamepad.current;
 
         //the player cant switch weapons while aiming or jumping
-        if (gameObject.GetComponent<WeaponHabilities>().isAiming || !player.GetComponent<PlayerMovement>().grounded)
+        if (gameObject.GetComponent<WeaponHabilities>().isAiming || 
+        !player.GetComponent<PlayerMovement>().grounded ||
+        animator.GetInteger("Hit") > 0 || animator.GetBool("Block"))
         {
             canSwitch = false;
         }
