@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Cinemachine;
+using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -31,6 +32,8 @@ public class WeaponHabilities : MonoBehaviour
     private void Update()
     {
         currentWeaponIndex = weaponManager.GetComponent<WeaponManager>().currentWeaponIndex;
+        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        
         if (currentWeaponIndex == 0)
         {
             GreatSwordHabilities();
@@ -61,6 +64,25 @@ public class WeaponHabilities : MonoBehaviour
         else if (currentWeaponIndex == 1)
         {
             RapierHabilities();
+
+            //Block manager
+            if (stateInfo.IsName("R_Deflect") && stateInfo.normalizedTime >= 0.9f)
+            {
+                animator.SetBool("Block", false);
+            }
+
+            //Combat manager
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (stateInfo.IsName("R_Attack1") && stateInfo.normalizedTime < 0.9f)
+                {
+                    animator.SetInteger("Hit", 2);
+                }
+            }
+            if (stateInfo.normalizedTime >= 0.9f && (stateInfo.IsName("R_Attack1") || stateInfo.IsName("R_Attack2") || stateInfo.IsName("R_AttackAir")))
+            {
+                animator.SetInteger("Hit", 0);
+            }
         }
         else if (currentWeaponIndex == 2)
         {
@@ -82,33 +104,9 @@ public class WeaponHabilities : MonoBehaviour
         }
     }
 
-    //This method is called when the player switches weapons
-    public void HabilitesManager(int weaponIndex)
-    {
-        if (currentWeaponIndex != weaponIndex)
-        {
-            currentWeaponIndex = weaponIndex;
-
-            if (currentWeaponIndex == 0)
-            {
-                //Calls GreatSwordHabilities method
-            }
-            else if (currentWeaponIndex == 1)
-            {
-                //Calls RapierHabilities method
-            }
-            else if (currentWeaponIndex == 2)
-            {
-                //Calls Gun method
-            }
-        }
-    }
-
     //This method is called when the player switches to the GreatSword
     public void GreatSwordHabilities()
     {
-        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
         //GreatSword habilities
         if (player.GetComponent<PlayerMovement>().grounded && stateInfo.IsName("GS_Walk") && animator.GetFloat("Speed") <= 0.1f && animator.GetFloat("Direction") <= 0.1f)
         {
@@ -131,6 +129,14 @@ public class WeaponHabilities : MonoBehaviour
     public void RapierHabilities()
     {
         //Rapier habilities
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetInteger("Hit", 1);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            animator.SetBool("Block", true);
+        }
     }
 
     //This method is called when the player switches to the Gun

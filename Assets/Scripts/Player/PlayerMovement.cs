@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         //blocks movement while blocking and attacking
-        if (animator.GetBool("Block") || animator.GetInteger("Hit") != 0)
+        if (animator.GetBool("Block") || animator.GetInteger("Hit") > 0)
         {
             moveDirection = Vector3.zero;
         }
