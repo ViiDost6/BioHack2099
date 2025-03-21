@@ -17,6 +17,8 @@ public class WeaponHabilities : MonoBehaviour
     public Animator animator;
     private AnimatorStateInfo stateInfo;
     public Canvas aimCanvas;
+    public Transform emissionPoint;
+    public GameObject bullet;
 
     [Header("Camera")]
     public CinemachineCamera camera3rdperson;
@@ -174,8 +176,38 @@ public class WeaponHabilities : MonoBehaviour
                 
             }
         }
-        
 
+        //shooting
+        if (Input.GetMouseButtonDown(0) && isAiming)
+        {
+            //tells the animator to add one to the hit integer
+            animator.SetTrigger("Shoot");
+
+            // Shoots a bullet from the emission point to the point in the middle of the screen
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            Vector3 forceDirection;
+
+            // Create a layer mask that excludes the player's layer
+            int layerMask = ~LayerMask.GetMask("Player"); // Exclude the "Player" layer
+
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
+            {
+                forceDirection = (hit.point - emissionPoint.position).normalized;
+            }
+            else
+            {
+                forceDirection = ray.direction; // Use the ray's direction if no hit
+            }
+
+            GameObject bulletInstance = Instantiate(bullet, emissionPoint.position, Quaternion.identity);
+            Rigidbody bulletRb = bulletInstance.GetComponent<Rigidbody>();
+
+            // Apply force to the bullet
+            bulletRb.AddForce(forceDirection * bulletInstance.GetComponent<Bullet>().speed, ForceMode.Impulse);
+
+            // Destroy the bullet after its lifetime
+            Destroy(bulletInstance, bulletInstance.GetComponent<Bullet>().lifeTime);
+        }
     }
     
 }
