@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 176b1d5d0aaccbc4ead72108bc69598b
+guid: 365d8579776e4ef478834b32f9fbf83b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MI_Trim_01
-    second: {fileID: 2100000, guid: 539ac672578a0e842868a89d6dce4a48, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: M_Light
-    second: {fileID: 2100000, guid: 86a0a193a0ab75343a992f6db49188c1, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

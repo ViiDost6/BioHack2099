@@ -207,6 +207,9 @@ public class WeaponHabilities : MonoBehaviour
 
             // Destroy the bullet after its lifetime
             Destroy(bulletInstance, bulletInstance.GetComponent<Bullet>().lifeTime);
+
+            //Destroy bullet on collision with map layer
+            
         }
     }
     
