@@ -93,10 +93,10 @@ public class WeaponManager : MonoBehaviour
         //Current weapon GreatSword
         if (currentWeaponIndex == 0)
         {
-            player.GetComponent<PlayerMovement>().moveSpeed = 6;
+            player.GetComponent<PlayerMovement>().moveSpeed = 2;
             player.GetComponent<PlayerMovement>().jumpForce = 5;
-            player.GetComponent<PlayerMovement>().walkSpeed = 6;
-            player.GetComponent<PlayerMovement>().sprintSpeed = 7;
+            player.GetComponent<PlayerMovement>().walkSpeed = 2;
+            player.GetComponent<PlayerMovement>().sprintSpeed = 4;
             animator.SetBool("GreatSword", true);
             animator.SetBool("Rapier", false);
             animator.SetBool("Gun", false);
@@ -104,10 +104,10 @@ public class WeaponManager : MonoBehaviour
         //Current weapon Rapier
         if (currentWeaponIndex == 1)
         {
-            player.GetComponent<PlayerMovement>().moveSpeed = 7;
+            player.GetComponent<PlayerMovement>().moveSpeed = 4;
             player.GetComponent<PlayerMovement>().jumpForce = 7;
-            player.GetComponent<PlayerMovement>().walkSpeed = 7;
-            player.GetComponent<PlayerMovement>().sprintSpeed = 9;
+            player.GetComponent<PlayerMovement>().walkSpeed = 4;
+            player.GetComponent<PlayerMovement>().sprintSpeed = 6;
             animator.SetBool("GreatSword", false);
             animator.SetBool("Rapier", true);
             animator.SetBool("Gun", false);
@@ -115,11 +115,11 @@ public class WeaponManager : MonoBehaviour
         //Current weapon gun
         if (currentWeaponIndex == 2)
         {
-            player.GetComponent<PlayerMovement>().moveSpeed = 9;
+            player.GetComponent<PlayerMovement>().moveSpeed = 6;
             player.GetComponent<PlayerMovement>().jumpForce = 7;
             player.GetComponent<PlayerMovement>().isDoubleJump = true;
-            player.GetComponent<PlayerMovement>().walkSpeed = 9;
-            player.GetComponent<PlayerMovement>().sprintSpeed = 10;
+            player.GetComponent<PlayerMovement>().walkSpeed = 6;
+            player.GetComponent<PlayerMovement>().sprintSpeed = 8;
             animator.SetBool("GreatSword", false);
             animator.SetBool("Rapier", false);
             animator.SetBool("Gun", true);

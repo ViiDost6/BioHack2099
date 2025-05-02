@@ -116,13 +116,11 @@ public class WeaponHabilities : MonoBehaviour
             if (Input.GetMouseButton(1))
             {
                 animator.SetBool("Block", true);
-                Debug.Log("Block");
             }
             //makes the player able to attack
             if (Input.GetMouseButtonDown(0))
             {
                 animator.SetInteger("Hit", 1);
-                Debug.Log("Attack");
             }
         }
     }

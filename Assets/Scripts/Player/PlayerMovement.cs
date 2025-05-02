@@ -17,8 +17,6 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
-    public float wallrunSpeed;
-    public bool isWallrunning;
     bool readyToJump;
 
     [HideInInspector] public float walkSpeed;
@@ -48,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
         readyToJump = true;
         walkSpeed = moveSpeed;
-        sprintSpeed = 7f;
+        sprintSpeed = 4;
         animator.SetBool("GreatSword", true);
     }
 
@@ -61,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
         StateHandler();
-        
     }
 
     private void FixedUpdate()
@@ -79,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
         var gamepad = Gamepad.current;
 
-        if ((Input.GetKeyDown(KeyCode.Space) || (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame)) && readyToJump && (grounded || isDoubleJump || isWallrunning))
+        if ((Input.GetKeyDown(KeyCode.Space) || (gamepad != null && gamepad.buttonSouth.wasPressedThisFrame)) && readyToJump && (grounded || isDoubleJump))
         {
             isDoubleJump = false;
             readyToJump = false;
@@ -101,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F) && grounded && moveSpeed == 0)
         {
- 
+
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -112,10 +109,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        if (isWallrunning)
-        {
-            moveSpeed = wallrunSpeed;
-        }
         if (grounded)
         {
             rb.linearDamping = groundDrag;
@@ -138,11 +131,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // on ground
-        if(grounded)
+        if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
         // in air
-        else if(!grounded)
+        else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
 
@@ -151,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         // limit velocity if needed
-        if(flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > moveSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
