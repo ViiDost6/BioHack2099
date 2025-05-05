@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 
 public class Dialogue : MonoBehaviour
@@ -10,6 +11,8 @@ public class Dialogue : MonoBehaviour
     public Canvas talkCanvas; // Reference to the canvas for displaying action
     public Canvas dialogueBox ; // Reference to the canvas for displaying dialogue
     public GameObject door; // Reference to the door object if needed
+    private bool isDialogueActive = false; // Flag to check if dialogue is active
+    public bool isDoorLocked; // Flag to check if the door must be locked until the player finishes the dialogue
 
     private int currentLineIndex = 0; // Index of the current line being displayed
 
@@ -18,59 +21,81 @@ public class Dialogue : MonoBehaviour
         talkCanvas.gameObject.SetActive(false); // Hide the canvas at the start
         dialogueBox.gameObject.SetActive(false); // Hide the dialogue box at the start
         currentLineIndex = 0; // Initialize the line index
+        isDialogueActive = false; // Initialize the dialogue active flag
+        
+        if (isDoorLocked)
+        {
+            door.GetComponent<Doors>().canDoorBeOpened = false; // Lock the door if needed
+        }
     }
 
     void DialogueManager()
     {
-        // If the player presses R, the dialogue box is activated and the first line of dialogue is displayed
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && isDialogueActive == false)
         {
-            // Stop any existing dialogue coroutine to prevent overlapping
-            StopAllCoroutines();
+            isDialogueActive = true; // Set the dialogue active flag to true
+            currentLineIndex = 0; // Reset the line index to start from the first line
 
-            dialogueBox.gameObject.SetActive(true);
-            talkCanvas.gameObject.SetActive(false);
+            // Start the coroutine to show the dialogue
+            StartCoroutine(ShowDialogue(currentLineIndex));
+        }
+        else if (Input.GetKeyDown(KeyCode.R) && isDialogueActive == true)
+        {
+            //stops last coroutine if the player presses "R" again
+            StopAllCoroutines(); // Stop any active dialogue coroutine
 
-            // Calls the coroutine to display the dialogue
-            DisplayDialogue(dialogueLines[currentLineIndex]);
+            // If dialogue is active and "R" is pressed, show the next line
+            currentLineIndex++;
+            if (currentLineIndex < dialogueLines.Length)
+            {
+                StartCoroutine(ShowDialogue(currentLineIndex)); // Show the next line
+            }
+            else
+            {
+                currentLineIndex = 0; // Reset index if all lines have been shown
+                isDialogueActive = false; // Set the dialogue active flag to false
+                dialogueBox.gameObject.SetActive(false); // Hide the dialogue box after showing all lines
+
+                if (isDoorLocked)
+                {
+                    door.GetComponent<Doors>().canDoorBeOpened = true; // Unlock the door if needed
+                }
+            }
         }
     }
 
-    void DisplayDialogue(string line)
+    IEnumerator ShowDialogue(int lineIndex)
     {
-        // Clear the previous text
-        dialogueBox.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = ""; // Clear the text in the dialogue box
+        // Show the dialogue box and set the text to the current line
+        dialogueBox.gameObject.SetActive(true);
+        TextMeshProUGUI textComponent = dialogueBox.GetComponentInChildren<TextMeshProUGUI>();
+        textComponent.text = ""; // Clear previous text
 
-        // Type out the current line of dialogue
-        foreach (char letter in line.ToCharArray())
+        // Type out the current line
+        foreach (char letter in dialogueLines[lineIndex].ToCharArray())
         {
-            dialogueBox.GetComponentInChildren<TMPro.TextMeshProUGUI>().text += letter; // Add each letter to the text box
-            yield return new WaitForSeconds(typingSpeed); // Wait for the specified typing speed before adding the next letter
+            textComponent.text += letter; // Add each letter to the text component
+            yield return new WaitForSeconds(typingSpeed); // Wait for the specified typing speed
         }
 
-        // Wait for player input to proceed to the next line or close the dialogue box
         while (!Input.GetKeyDown(KeyCode.R))
         {
-            yield return null; // Wait until the player presses R again
+            // Wait until the player presses the "R" key to continue
+            Debug.Log("Press R to continue"); // Debug message for testing
+            yield return null;
         }
 
         currentLineIndex++; // Move to the next line
 
-        // Checks for more lines of dialogue
-        if (currentLineIndex < dialogueLines.Length)
+        if (currentLineIndex >= dialogueLines.Length)
         {
-            // If there are more lines, call the coroutine again to display the next line
-            DisplayDialogue(dialogueLines[currentLineIndex]);
-        }
-        else if (currentLineIndex >= dialogueLines.Length)
-        {
-            // If no more lines, hide the dialogue box and reset the index
-            dialogueBox.gameObject.SetActive(false); // Hide the dialogue box when finished
-            currentLineIndex = 0; // Reset index for next interaction
+            currentLineIndex = 0; // Reset index if all lines have been shown
+            isDialogueActive = false; // Set the dialogue active flag to false
+            dialogueBox.gameObject.SetActive(false); // Hide the dialogue box after showing all lines
         }
     }
-    // Update is called once per frame
 
+    
 
     void Update()
     {
