@@ -12300,7 +12300,7 @@ MonoBehaviour:
     this simulations called "videogames". Remember to time your moves, as if you
     where in a dance battle.
   - In the next room you'll find your first opponent. Good Luck!
-  typingSpeed: 1.5
+  typingSpeed: 0.01
   talkCanvas: {fileID: 168437746}
   dialogueBox: {fileID: 1428348838}
   door: {fileID: 2047101024}
