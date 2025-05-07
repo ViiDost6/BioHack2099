@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
     public GameObject player;
     public Animator animator;
 
-    public int damage;
+    public int damage  = 50;
 
     [Header("Keybinds")]
     //Keyboard keys for weapon switching

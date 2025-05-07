@@ -14,12 +14,13 @@ public class Enemy : MonoBehaviour
     public float attackRange = 1.0f; // Range within which the enemy can attack the player
     public float attackDamage = 10.0f; // Damage dealt to the player on attack
     public float health = 100.0f; // Health of the enemy
-    public float attackCooldown = 1.0f; // Time between attacks
+    public float attackCooldown = 3.0f; // Time between attacks
     private float lastAttackTime = 0.0f; // Time of the last attack
     public Animator animator; // Reference to the enemy's animator component
     private PlayerHealth playerHealth; // Reference to the player's health component
     private bool isDead = false; // Flag to check if the enemy is dead
     private bool hasTakenDamage = false; // Flag to check if the enemy has taken damage
+    private int damage = 50;
 
     void Start()
     {
@@ -95,10 +96,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void TakeDamage(float damage)
+    void TakeDamage(int damage)
     {
         // Reduce the enemy's health by the damage amount
         health -= damage;
+        Debug.Log("Enemy took damage! Remaining health: " + health);
         // Check if the enemy is dead
         if (health <= 0 && !isDead)
         {
@@ -119,10 +121,23 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Check if the enemy collides with the player's attack
-        if (other.CompareTag("Arma") && !hasTakenDamage)
+        if (other.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0)
         {
+            // Get the damage value from the player's weapon manager
+            WeaponManager weaponManager = player.GetComponent<WeaponManager>();
+            if (weaponManager != null)
+            {
+                damage = weaponManager.damage; // Get the damage value from the player's weapon manager
+            }
+
+            // Call the TakeDamage method with the damage value from the player's weapon manager
+            TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
+        }
+        else if (other.CompareTag("Player") && !hasTakenDamage && player.GetComponent<Animator>().GetInteger("Hit") > 0)
+        {
+            Debug.Log("Enemy hit by player's attack!");
             hasTakenDamage = true;
-            TakeDamage(player.GetComponent<WeaponManager>().damage);
+            TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
             Invoke(nameof(ResetDamageFlag), 0.5f); // Reset the flag after 0.5 seconds
         }
     }

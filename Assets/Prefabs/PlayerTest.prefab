@@ -972,7 +972,6 @@ GameObject:
   - component: {fileID: 8446852619540255801}
   - component: {fileID: 6859265992515459996}
   - component: {fileID: 4266386926965210253}
-  - component: {fileID: 2294362183417057186}
   m_Layer: 3
   m_Name: Gun
   m_TagString: Untagged
@@ -1049,27 +1048,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2294362183417057186
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4311255060933932760}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.120113105, y: 0.90721065, z: 0.43954375}
-  m_Center: {x: 0.0497191, y: -0.046394702, z: 0.0809692}
 --- !u!1 &4782608186598116819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,14 +1177,14 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.36194384, y: 1.4635553, z: 0.07399776}
   m_Center: {x: -0.038183987, y: 1.205708, z: -0.0022685514}
@@ -1331,6 +1309,7 @@ MonoBehaviour:
   playerObj: {fileID: 4128508805039806184}
   player: {fileID: 6309134511162627399}
   animator: {fileID: 3012522948569643371}
+  damage: 0
   lastWeaponKey: 113
   nextWeaponKey: 101
   canSwitch: 1
@@ -1858,10 +1837,9 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   isDead: 0
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
   invincibilityTime: 1
+  enemy: {fileID: 0}
+  enemyHealth: 0
   playerUI: {fileID: 0}
 --- !u!136 &1295039315766233779
 CapsuleCollider:
@@ -2398,14 +2376,14 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.13250543, y: 1.3935692, z: 0.09726871}
   m_Center: {x: -0.0029575853, y: 1.0001333, z: 0.005229975}
