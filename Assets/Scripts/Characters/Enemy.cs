@@ -77,7 +77,7 @@ public class Enemy : MonoBehaviour
     void AttackPlayer()
     {
         // Check if the cooldown period has passed
-        if (Time.time >= lastAttackTime + attackCooldown)
+        if (Time.time >= lastAttackTime + attackCooldown && !player.GetComponentInChildren<Animator>().GetBool("Block"))
         {
             // Gets a random number between 0 and 2 that decides the attack animation
             int attackType = Random.Range(0, 3); // Randomly choose an attack type (0 or 1 or 2)
@@ -132,13 +132,6 @@ public class Enemy : MonoBehaviour
 
             // Call the TakeDamage method with the damage value from the player's weapon manager
             TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
-        }
-        else if (other.CompareTag("Player") && !hasTakenDamage && player.GetComponent<Animator>().GetInteger("Hit") > 0)
-        {
-            Debug.Log("Enemy hit by player's attack!");
-            hasTakenDamage = true;
-            TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
-            Invoke(nameof(ResetDamageFlag), 0.5f); // Reset the flag after 0.5 seconds
         }
     }
 
