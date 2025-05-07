@@ -24,11 +24,24 @@ public class WeaponHabilities : MonoBehaviour
     public CinemachineCamera camera3rdperson;
     public CinemachineCamera cameraAiming;
     public bool isAiming;
+    public bool canAct = false; //decides if the player can make an action or not
 
     private void Start()
     {
         currentWeaponIndex = weaponManager.GetComponent<WeaponManager>().currentWeaponIndex;
         stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+    }
+
+    public void TriggerAction()
+    {
+        if (canAct == false)
+        {
+            canAct = true; //allows the player to make an action
+        }
+        else if (canAct == true)
+        {
+            canAct = false; //disables the player to make an action
+        }
     }
 
     private void Update()
@@ -41,13 +54,13 @@ public class WeaponHabilities : MonoBehaviour
             GreatSwordHabilities();
 
             //Block manager
-            if (Input.GetMouseButtonUp(1))
+            if (Input.GetMouseButtonUp(1) && canAct)
             {
                 animator.SetBool("Block", false);
             }
 
             //Combat manager
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && canAct)
             {
                 if (stateInfo.IsName("GS_Slash") && stateInfo.normalizedTime < 0.9f)
                 {
@@ -74,7 +87,7 @@ public class WeaponHabilities : MonoBehaviour
             }
 
             //Combat manager
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && canAct)
             {
                 if (stateInfo.IsName("R_Attack1") && stateInfo.normalizedTime < 0.9f)
                 {
@@ -113,12 +126,12 @@ public class WeaponHabilities : MonoBehaviour
         if (player.GetComponent<PlayerMovement>().grounded && stateInfo.IsName("GS_Walk") && animator.GetFloat("Speed") <= 0.1f && animator.GetFloat("Direction") <= 0.1f)
         {
             //makes the player able to block while holding right mouse click
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1) && canAct)
             {
                 animator.SetBool("Block", true);
             }
             //makes the player able to attack
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && canAct)
             {
                 animator.SetInteger("Hit", 1);
             }
@@ -129,11 +142,11 @@ public class WeaponHabilities : MonoBehaviour
     public void RapierHabilities()
     {
         //Rapier habilities
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canAct)
         {
             animator.SetInteger("Hit", 1);
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && canAct)
         {
             animator.SetBool("Block", true);
         }
@@ -176,7 +189,7 @@ public class WeaponHabilities : MonoBehaviour
         }
 
         //shooting
-        if (Input.GetMouseButtonDown(0) && isAiming)
+        if (Input.GetMouseButtonDown(0) && isAiming && canAct)
         {
             //tells the animator to add one to the hit integer
             animator.SetTrigger("Shoot");
@@ -205,9 +218,6 @@ public class WeaponHabilities : MonoBehaviour
 
             // Destroy the bullet after its lifetime
             Destroy(bulletInstance, bulletInstance.GetComponent<Bullet>().lifeTime);
-
-            //Destroy bullet on collision with map layer
-            
         }
     }
     

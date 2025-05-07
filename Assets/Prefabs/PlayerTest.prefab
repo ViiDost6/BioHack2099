@@ -1116,7 +1116,7 @@ GameObject:
   - component: {fileID: 7395476019090773103}
   m_Layer: 3
   m_Name: GreatSword
-  m_TagString: Untagged
+  m_TagString: Arma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1362,6 +1362,7 @@ MonoBehaviour:
   camera3rdperson: {fileID: 0}
   cameraAiming: {fileID: 0}
   isAiming: 0
+  canAct: 0
 --- !u!1 &5305748471601918074
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,7 +2315,7 @@ GameObject:
   - component: {fileID: 5115839911433051668}
   m_Layer: 3
   m_Name: Rapier
-  m_TagString: Untagged
+  m_TagString: Arma
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

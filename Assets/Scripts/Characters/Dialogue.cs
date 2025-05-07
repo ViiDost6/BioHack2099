@@ -104,6 +104,11 @@ public class Dialogue : MonoBehaviour
         {
             DialogueManager();
         }
+
+        if (isDialogueActive)
+        {
+            talkCanvas.gameObject.SetActive(false); // Hide the talk canvas when dialogue is active
+        }
     }
 
     void OnTriggerEnter(Collider other)

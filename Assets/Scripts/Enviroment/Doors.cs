@@ -17,10 +17,6 @@ public class Doors : MonoBehaviour
     {
         doorTransform = this.transform; // Get the Transform component of the door
         doorCollider = this.GetComponent<BoxCollider>(); // Get the Collider component of the door
-        if (doorCollider == null)
-        {
-            Debug.LogError("No collider found on the door object.");
-        }
 
         // Store the closed and open positions
         closedPosition = doorTransform.position;
@@ -31,7 +27,6 @@ public class Doors : MonoBehaviour
     {
         if (canDoorBeOpened && other.CompareTag("Player"))
         {
-            Debug.Log("Player entered the trigger.");
             // Start opening the door
             if (doorCoroutine != null) StopCoroutine(doorCoroutine);
             doorCoroutine = StartCoroutine(MoveDoor(openPosition));
@@ -42,7 +37,6 @@ public class Doors : MonoBehaviour
     {
         if (canDoorBeOpened && other.CompareTag("Player"))
         {
-            Debug.Log("Player exited the trigger.");
             // Start closing the door
             if (doorCoroutine != null) StopCoroutine(doorCoroutine);
             doorCoroutine = StartCoroutine(MoveDoor(closedPosition));

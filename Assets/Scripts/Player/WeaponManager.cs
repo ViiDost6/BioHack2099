@@ -13,6 +13,7 @@ public class WeaponManager : MonoBehaviour
     public GameObject player;
     public Animator animator;
 
+    public int damage;
 
     [Header("Keybinds")]
     //Keyboard keys for weapon switching
@@ -97,6 +98,7 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().jumpForce = 5;
             player.GetComponent<PlayerMovement>().walkSpeed = 2;
             player.GetComponent<PlayerMovement>().sprintSpeed = 4;
+            damage = 50;
             animator.SetBool("GreatSword", true);
             animator.SetBool("Rapier", false);
             animator.SetBool("Gun", false);
@@ -108,6 +110,7 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().jumpForce = 7;
             player.GetComponent<PlayerMovement>().walkSpeed = 4;
             player.GetComponent<PlayerMovement>().sprintSpeed = 6;
+            damage = 25;
             animator.SetBool("GreatSword", false);
             animator.SetBool("Rapier", true);
             animator.SetBool("Gun", false);
@@ -120,6 +123,7 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().isDoubleJump = true;
             player.GetComponent<PlayerMovement>().walkSpeed = 6;
             player.GetComponent<PlayerMovement>().sprintSpeed = 8;
+            damage = 10;
             animator.SetBool("GreatSword", false);
             animator.SetBool("Rapier", false);
             animator.SetBool("Gun", true);

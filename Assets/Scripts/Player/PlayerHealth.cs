@@ -6,8 +6,9 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100;
     public float currentHealth;
     [HideInInspector] public bool isDead = false;
-    public LayerMask enemyLayer;
     public float invincibilityTime = 1f;
+    public GameObject enemy;
+    [HideInInspector] public float enemyHealth;
 
     [Header("UI References")]
     public Canvas playerUI;
@@ -15,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        enemyHealth = enemy.GetComponent<Enemy>().health;
     }
 
     private void Update()
@@ -25,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
             playerUI.enabled = true;
             //shows on text current health
             playerUI.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = 
-            "Player Health: " + currentHealth.ToString();
+            "Player Health: " + currentHealth.ToString() + "/" + enemyHealth.ToString();
         }
         
     }

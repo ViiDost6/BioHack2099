@@ -187,8 +187,33 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 176b1d5d0aaccbc4ead72108bc69598b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4101455630699995815}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 176b1d5d0aaccbc4ead72108bc69598b, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 358191521964272798}
   m_SourcePrefab: {fileID: 100100000, guid: 176b1d5d0aaccbc4ead72108bc69598b, type: 3}
+--- !u!1 &2691120035098647721 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 176b1d5d0aaccbc4ead72108bc69598b, type: 3}
+  m_PrefabInstance: {fileID: 2997619132556435960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &358191521964272798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2691120035098647721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c34159f78abae4b4a975ecaf3d28a65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 86a0a193a0ab75343a992f6db49188c1, type: 2}
+  lights:
+  - {fileID: 6978615093821069535}
+  glowAmount: 0.548
+  maxLightIntensity: 5
 --- !u!4 &3320023487079089683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 176b1d5d0aaccbc4ead72108bc69598b, type: 3}
