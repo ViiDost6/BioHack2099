@@ -657,6 +657,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6824302251668638172}
   - component: {fileID: 2693632042879276820}
+  - component: {fileID: 6663196018433923387}
+  - component: {fileID: 2171410355998890983}
   m_Layer: 0
   m_Name: Paperman
   m_TagString: Untagged
@@ -674,7 +676,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3701526, y: 1.3701526, z: 1.3701526}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7664290840460305943}
@@ -694,7 +696,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: ca4d90d4ef17c3549bdc7c3d900ffeca, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -703,6 +705,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6663196018433923387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907917438950286612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69948c3859d95224d8afdf3ae231b278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - Welcome, text subject 0. Your nature is the peak of genetic ingeneering. Super-human!
+  - I'm Js0n, a battletech droid specialized in rythmic greatsword combat, or as
+    your species say, bonk when lights are on.
+  - Attack with up to a 3 hit combo with the left mouse click, and block mantaining
+    the right mouse click. Use shift to run and space to jump, as is costumary in
+    this simulations called "videogames". Remember to time your moves, as if you
+    where in a dance battle.
+  - In the next room you'll find your first opponent. Good Luck!
+--- !u!65 &2171410355998890983
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907917438950286612}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 2.5, z: 2.1082108}
+  m_Center: {x: 0.00000033860553, y: 1, z: 1.1384274}
 --- !u!1 &2049983525113804763
 GameObject:
   m_ObjectHideFlags: 0

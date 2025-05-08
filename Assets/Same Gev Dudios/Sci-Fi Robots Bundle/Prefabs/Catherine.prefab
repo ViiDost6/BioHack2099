@@ -808,6 +808,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 845671309170379749}
+  - component: {fileID: 7968509930272638611}
+  - component: {fileID: 5346500400676334614}
   m_Layer: 0
   m_Name: Catherine
   m_TagString: Untagged
@@ -832,6 +834,46 @@ Transform:
   - {fileID: 3139433339613605908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7968509930272638611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5159424588527136397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69948c3859d95224d8afdf3ae231b278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - Good job newbie. I will teach you about timing and hitting right.
+  - 'Some enemies have power orbs: a weakspot in exchange of more power. But don''t
+    worry, ill teach you how to exploit that'
+  - You are bound to more than one weapon. To switch between them, press E and Q.
+    For this practice, press E to switch to the rappier
+  - Remember to watch your footing and keep the rythm steady
+--- !u!65 &5346500400676334614
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5159424588527136397}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5625131, y: 1.6896974, z: 1.9358078}
+  m_Center: {x: -0.1278776, y: 0.84625655, z: 1.00404}
 --- !u!1 &5191510906848359781
 GameObject:
   m_ObjectHideFlags: 0
@@ -2098,6 +2140,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
