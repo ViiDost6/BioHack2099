@@ -83,7 +83,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -204,7 +204,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -358,11 +358,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 86a0a193a0ab75343a992f6db49188c1, type: 2}
-  lights:
-  - {fileID: 7097886037228848737}
-  - {fileID: 243488609784215996}
   glowAmount: 0
-  maxLightIntensity: 5
+  glowSpeed: 1
+  glowMult: 5
 --- !u!64 &4388238705196168278
 MeshCollider:
   m_ObjectHideFlags: 0
