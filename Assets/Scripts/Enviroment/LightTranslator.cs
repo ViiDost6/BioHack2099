@@ -1,4 +1,6 @@
 using System.Collections;
+using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class LightTranslator : MonoBehaviour
@@ -26,7 +28,6 @@ public class LightTranslator : MonoBehaviour
             Debug.LogError("Material is not assigned!");
         }
     }
-
     // Public method to trigger the glow effect
     public void TriggerGlow()
     {
@@ -54,6 +55,14 @@ public class LightTranslator : MonoBehaviour
         while (glowAmount < 1f)
         {
             glowAmount += Time.deltaTime * glowSpeed; // Increase glow amount over time
+
+            // Snap to 1 if close enough to avoid floating-point inaccuracies
+            if (1f - glowAmount < 0.01f)
+            {
+                glowAmount = 1f;
+                break;
+            }
+
             glowAmount = Mathf.Clamp(glowAmount, 0f, 1f); // Ensure glow amount stays within bounds
 
             // Update the shader
@@ -74,6 +83,14 @@ public class LightTranslator : MonoBehaviour
         while (glowAmount > 0f)
         {
             glowAmount -= Time.deltaTime * glowSpeed; // Decrease glow amount over time
+
+            // Snap to 0 if close enough to avoid floating-point inaccuracies
+            if (glowAmount < 0.01f)
+            {
+                glowAmount = 0f;
+                break;
+            }
+
             glowAmount = Mathf.Clamp(glowAmount, 0f, 1f); // Ensure glow amount stays within bounds
 
             // Update the shader

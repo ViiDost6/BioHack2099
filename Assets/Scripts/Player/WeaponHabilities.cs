@@ -196,19 +196,7 @@ public class WeaponHabilities : MonoBehaviour
 
             // Shoots a bullet from the emission point to the point in the middle of the screen
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            Vector3 forceDirection;
-
-            // Create a layer mask that excludes the player's layer
-            int layerMask = ~LayerMask.GetMask("Player"); // Exclude the "Player" layer
-
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, layerMask))
-            {
-                forceDirection = (hit.point - emissionPoint.position).normalized;
-            }
-            else
-            {
-                forceDirection = ray.direction; // Use the ray's direction if no hit
-            }
+            Vector3 forceDirection = ray.direction.normalized; // Always use the ray's direction
 
             GameObject bulletInstance = Instantiate(bullet, emissionPoint.position, Quaternion.identity);
             Rigidbody bulletRb = bulletInstance.GetComponent<Rigidbody>();

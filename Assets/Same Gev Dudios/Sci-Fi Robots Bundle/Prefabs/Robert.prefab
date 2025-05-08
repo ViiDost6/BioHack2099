@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.099
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,23 +18,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 89.335
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.47404894
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.8804985
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -123.405
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c31501b18d95d82419dad970a9527842, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -53,11 +53,89 @@ PrefabInstance:
       value: Robert
       objectReference: {fileID: 0}
     - target: {fileID: 3606252276935390340, guid: c31501b18d95d82419dad970a9527842, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 0dd2555d0ab8c1e489bf47abc4bd3626, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c31501b18d95d82419dad970a9527842, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3327001770745805340}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c31501b18d95d82419dad970a9527842, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3499106193675370143}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c31501b18d95d82419dad970a9527842, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4083276063983390241}
   m_SourcePrefab: {fileID: 100100000, guid: c31501b18d95d82419dad970a9527842, type: 3}
+--- !u!1 &691560146198372304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c31501b18d95d82419dad970a9527842, type: 3}
+  m_PrefabInstance: {fileID: 385483932293243521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3327001770745805340
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691560146198372304}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c31501b18d95d82419dad970a9527842, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6d165c456f49a2945a5e30206e9a5f89, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3499106193675370143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691560146198372304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69948c3859d95224d8afdf3ae231b278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueLines:
+  - 'Now, it''s time to show you your third weapon, the blaster. To pick it, press
+    E with the rappier, or Q with the greatsword. You are able to change between
+    them anytime. '
+  - For this weapon, press the right mouse button to aim, and left mouse click to
+    shoot.
+  - This time you will fight with a flying enemy, which renders your physical attacks
+    useless. And remember, time it with the music
+  - By the way, name's Byte
+--- !u!65 &4083276063983390241
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 691560146198372304}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5284166, y: 1.7409178, z: 2.1681275}
+  m_Center: {x: -0.51619947, y: 0.8754913, z: 1.0586991}

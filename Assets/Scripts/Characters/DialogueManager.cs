@@ -7,6 +7,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
     public Canvas talkCanvas;
     public Canvas dialogueCanvas;
+    public Canvas playerUICanvas;
     public TextMeshProUGUI dialogueText;
     public float typingSpeed = 0.05f;
 
@@ -21,6 +22,7 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueCanvas.gameObject.SetActive(false);
         talkCanvas.gameObject.SetActive(false);
+        playerUICanvas.gameObject.SetActive(true);
     }
 
     public void StartDialogue(string[] lines)
@@ -33,6 +35,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator ShowDialogue(string[] lines)
     {
+        playerUICanvas.gameObject.SetActive(false);
         dialogueCanvas.gameObject.SetActive(true);
         foreach (string line in lines)
         {
@@ -48,6 +51,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         dialogueCanvas.gameObject.SetActive(false);
+        playerUICanvas.gameObject.SetActive(true);
         dialogueRoutine = null;
     }
 }

@@ -11,4 +11,9 @@ public class Bullet : MonoBehaviour
 
     //tells the bullet the target
     public Vector3 target;
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject); // Destroy the bullet on collision
+    }
 }

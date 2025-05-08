@@ -100,7 +100,6 @@ public class Enemy : MonoBehaviour
     {
         // Reduce the enemy's health by the damage amount
         health -= damage;
-        Debug.Log("Enemy took damage! Remaining health: " + health);
         // Check if the enemy is dead
         if (health <= 0 && !isDead)
         {
@@ -132,6 +131,15 @@ public class Enemy : MonoBehaviour
 
             // Call the TakeDamage method with the damage value from the player's weapon manager
             TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Check if the enemy exits the trigger collider of the player's attack
+        if (other.CompareTag("Player"))
+        {
+            ResetDamageFlag(); // Reset the damage flag
         }
     }
 

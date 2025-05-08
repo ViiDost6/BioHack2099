@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,27 +8,30 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth;
     [HideInInspector] public bool isDead = false;
     public float invincibilityTime = 1f;
-    public GameObject enemy;
+
     [HideInInspector] public float enemyHealth;
 
     [Header("UI References")]
     public Canvas playerUI;
+    public Image healthBar;
 
     private void Start()
     {
         currentHealth = maxHealth;
-        enemyHealth = enemy.GetComponent<Enemy>().health;
+        healthBar.fillAmount = currentHealth / maxHealth; // Initialize health bar
     }
 
     private void Update()
     {
         if (!isDead)
         {
-            //shows player ui
-            playerUI.enabled = true;
-            //shows on text current health
-            playerUI.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = 
-            "Player Health: " + currentHealth.ToString() + "/" + enemyHealth.ToString();
+            healthBar.fillAmount = currentHealth / maxHealth; // Update health bar
+
+            currentHealth += Time.deltaTime * 2; // Heal over time
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth; // Clamp to max health
+            }
         }
         
     }
