@@ -3,6 +3,7 @@ using UnityEngine;
 public class Weakpoints : MonoBehaviour
 {
     //Gets a collider and a rigidbody
+    public GameObject player;
     public Collider weakpointCollider;
     public GameObject weaponManager;
     public GameObject enemy;
@@ -29,7 +30,7 @@ public class Weakpoints : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (currentWeaponIndex == 1)
+        if (currentWeaponIndex == 1 && player.GetComponentInChildren<Animator>().GetInteger("Hit") >= 1) // Checks if the player is using the weakpoint weapon and is attacking
         {
             enemy.GetComponent<Enemy>().health = 0; // Set health to 0 if weakpoint is hit
             //Enemy sript calls the Die method to handle enemy death
