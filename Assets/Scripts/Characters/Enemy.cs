@@ -10,11 +10,13 @@ public class Enemy : MonoBehaviour
     private GameObject player; // Reference to the player object
     public NavMeshAgent navMesh; // Reference to the NavMeshSurface component for navigation
     public float detectionRange = 3.0f; // Range within which the enemy can detect the player
-    public float speed = 2.0f; // Speed of the enemy
     public float attackRange = 1.0f; // Range within which the enemy can attack the player
     public float attackDamage = 10.0f; // Damage dealt to the player on attack
     public float health = 100.0f; // Health of the enemy
     public float attackCooldown = 3.0f; // Time between attacks
+    public Transform returnPoint; // Point to which the enemy returns when not attacking
+
+
     private float lastAttackTime = 0.0f; // Time of the last attack
     public Animator animator; // Reference to the enemy's animator component
     private PlayerHealth playerHealth; // Reference to the player's health component
@@ -27,9 +29,11 @@ public class Enemy : MonoBehaviour
         // Get the animator component attached to this enemy
         player = GameObject.FindGameObjectWithTag("Player"); // Find the player object by tag
         playerHealth = player.GetComponent<PlayerHealth>(); // Get the PlayerHealth component from the player object
-
+        animator = GetComponent<Animator>(); // Get the Animator component attached to this enemy
         //tells navmesh where to go
+        navMesh = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component attached to this enemy
         navMesh.SetDestination(player.transform.position); // Set the destination of the NavMeshAgent to the player's position
+        navMesh.isStopped = false;
     }
 
 
@@ -37,9 +41,9 @@ public class Enemy : MonoBehaviour
     {
         if (navMesh != null)
         {
-            navMesh.SetDestination(player.transform.position); // Update the destination of the NavMeshAgent to the player's position
             // Check if the player is within attack range
-            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer <= attackRange)
             {
                 // Attack the player if the cooldown period has passed
                 if (Time.time >= lastAttackTime + attackCooldown)
@@ -55,27 +59,26 @@ public class Enemy : MonoBehaviour
             }
 
             // Updates pathfinding
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-            if (distanceToPlayer <= 10.0f && distanceToPlayer > navMesh.stoppingDistance && !isDead)
+            if (distanceToPlayer <= detectionRange && !isDead)
             {
                 animator.SetTrigger("playerInRange");
-                navMesh.isStopped = false; // Resume the NavMeshAgent
+                navMesh.SetDestination(player.transform.position); // Update the destination of the NavMeshAgent to the player's position
                 animator.SetBool("Walk", true); // Set the animator's "isMoving" parameter to true
             }
             else if (distanceToPlayer <= navMesh.stoppingDistance && !isDead)
             {
                 //Enemy attacks the player
+                navMesh.isStopped = true; // Stop the NavMeshAgent
                 animator.SetBool("Walk", false); // Set the animator's "isMoving" parameter to false
                 AttackPlayer();
             }
-            else
+            else if (!isDead)
             {
-                navMesh.isStopped = true; // Stop the NavMeshAgent
-                animator.SetBool("Walk", false); // Set the animator's "isMoving" parameter to false
+                navMesh.SetDestination(returnPoint.position); // Set the destination to the return point
+                animator.SetBool("Walk", true); // Set the animator's "isMoving" parameter to true
+                navMesh.isStopped = false; // Resume the NavMeshAgent
             }
         }
-        
     }
 
     void AttackPlayer()
@@ -104,6 +107,7 @@ public class Enemy : MonoBehaviour
     {
         // Reduce the enemy's health by the damage amount
         health -= damage;
+        hasTakenDamage = true; // Set the flag to true
         Debug.Log("Enemy took damage! Remaining health: " + health);
         // Check if the enemy is dead
         if (health <= 0 && !isDead)
@@ -125,7 +129,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Check if the enemy collides with the player's attack
-        if (other.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0)
+        if (other.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0 && hasTakenDamage == false)
         {
             // Get the damage value from the player's weapon manager
             WeaponManager weaponManager = player.GetComponent<WeaponManager>();
@@ -137,6 +141,8 @@ public class Enemy : MonoBehaviour
             // Call the TakeDamage method with the damage value from the player's weapon manager
             TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
         }
+        // Reset the damage flag after a short delay
+        Invoke("ResetDamageFlag", 0.5f); // Reset the damage flag after a short delay
     }
 
     private void ResetDamageFlag()

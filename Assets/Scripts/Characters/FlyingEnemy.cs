@@ -19,7 +19,7 @@ public class FlyingEnemy : MonoBehaviour
     private void Start()
     {
         // Initialize the enemy's position and rotation if needed
-        transform.position = new Vector3(transform.position.x, 1.5f, transform.position.z); // Set initial height
+        transform.position = new Vector3(transform.position.x, 2f, transform.position.z); // Set initial height
         transform.rotation = Quaternion.Euler(0, 0, 0); // Set initial rotation
     }
 
@@ -31,7 +31,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         //Varies y position to simulate flying
         Vector3 newPosition = transform.position;
-        newPosition.y = Mathf.Sin(Time.time * speed) * 0.5f + 1.5f; // Adjust the amplitude and offset as needed
+        newPosition.y = Mathf.Sin(Time.time * speed) * 0.5f + 2.0f; // Adjust the amplitude and offset as needed
         //Lerps the position to make it look smoother
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * speed);
     }
