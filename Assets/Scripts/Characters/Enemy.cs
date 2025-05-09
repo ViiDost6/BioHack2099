@@ -1,4 +1,6 @@
 using Unity.AI.Navigation;
+using Unity.Entities.UniversalDelegates;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -33,43 +35,47 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        navMesh.destination = player.transform.position; // Update the destination of the NavMeshAgent to the player's position
-        // Check if the player is within attack range
-        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        if (navMesh != null)
         {
-            // Attack the player if the cooldown period has passed
-            if (Time.time >= lastAttackTime + attackCooldown)
+            navMesh.SetDestination(player.transform.position); // Update the destination of the NavMeshAgent to the player's position
+            // Check if the player is within attack range
+            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
             {
+                // Attack the player if the cooldown period has passed
+                if (Time.time >= lastAttackTime + attackCooldown)
+                {
+                    AttackPlayer();
+                    lastAttackTime = Time.time;
+                }
+            }
+            
+            if (health <= 0 && !isDead)
+            {
+                Die(); // Call the Die method
+            }
+
+            // Updates pathfinding
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
+            if (distanceToPlayer <= 10.0f && distanceToPlayer > navMesh.stoppingDistance && !isDead)
+            {
+                animator.SetTrigger("playerInRange");
+                navMesh.isStopped = false; // Resume the NavMeshAgent
+                animator.SetBool("Walk", true); // Set the animator's "isMoving" parameter to true
+            }
+            else if (distanceToPlayer <= navMesh.stoppingDistance && !isDead)
+            {
+                //Enemy attacks the player
+                animator.SetBool("Walk", false); // Set the animator's "isMoving" parameter to false
                 AttackPlayer();
-                lastAttackTime = Time.time;
+            }
+            else
+            {
+                navMesh.isStopped = true; // Stop the NavMeshAgent
+                animator.SetBool("Walk", false); // Set the animator's "isMoving" parameter to false
             }
         }
         
-        if (health <= 0 && !isDead)
-        {
-            Die(); // Call the Die method
-        }
-
-        // Updates pathfinding
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-
-        if (distanceToPlayer <= 10.0f && distanceToPlayer > navMesh.stoppingDistance && !isDead)
-        {
-            animator.SetTrigger("playerInRange");
-            navMesh.isStopped = false; // Resume the NavMeshAgent
-            animator.SetBool("Walk", true); // Set the animator's "isMoving" parameter to true
-        }
-        else if (distanceToPlayer <= navMesh.stoppingDistance && !isDead)
-        {
-            //Enemy attacks the player
-            animator.SetBool("Walk", false); // Set the animator's "isMoving" parameter to false
-            AttackPlayer();
-        }
-        else
-        {
-            navMesh.isStopped = true; // Stop the NavMeshAgent
-            animator.SetBool("Walk", false); // Set the animator's "isMoving" parameter to false
-        }
     }
 
     void AttackPlayer()
@@ -98,6 +104,7 @@ public class Enemy : MonoBehaviour
     {
         // Reduce the enemy's health by the damage amount
         health -= damage;
+        Debug.Log("Enemy took damage! Remaining health: " + health);
         // Check if the enemy is dead
         if (health <= 0 && !isDead)
         {
@@ -115,10 +122,10 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, 2.0f);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         //Check if the enemy collides with the player's attack
-        if (other.gameObject.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0)
+        if (other.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0)
         {
             // Get the damage value from the player's weapon manager
             WeaponManager weaponManager = player.GetComponent<WeaponManager>();
@@ -129,10 +136,6 @@ public class Enemy : MonoBehaviour
 
             // Call the TakeDamage method with the damage value from the player's weapon manager
             TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
-        }
-        else
-        {
-            ResetDamageFlag(); // Reset the damage flag if the enemy is not hit by the player's attack
         }
     }
 

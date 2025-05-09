@@ -5969,14 +5969,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f43b7e9ee170d5b4aaf315d14f7f2d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMesh: {fileID: 8267218794614775134}
+  navMesh: {fileID: 0}
   detectionRange: 5
-  speed: 2
+  speed: 3
   attackRange: 1
-  attackDamage: 20
+  attackDamage: 30
   health: 100
-  attackCooldown: 1
-  animator: {fileID: 4688989144890740779}
+  attackCooldown: 3
+  animator: {fileID: 0}
 --- !u!136 &113071992067890993
 CapsuleCollider:
   m_ObjectHideFlags: 0

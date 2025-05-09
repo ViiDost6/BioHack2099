@@ -37741,6 +37741,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4782747046613586, guid: a2dfe588a42016e40892b72d31fd1cf6, type: 3}
   m_PrefabInstance: {fileID: 815416442}
   m_PrefabAsset: {fileID: 0}
+--- !u!195 &815416450 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 7258474532039198314, guid: a2dfe588a42016e40892b72d31fd1cf6, type: 3}
+  m_PrefabInstance: {fileID: 815416442}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &815416453 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95576270095608858, guid: a2dfe588a42016e40892b72d31fd1cf6, type: 3}
+  m_PrefabInstance: {fileID: 815416442}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &820192002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93642,6 +93652,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1332463579}
     m_Modifications:
+    - target: {fileID: 2867823841202227938, guid: 62cc72a6b296be148ae0800306fec84b, type: 3}
+      propertyPath: navMesh
+      value: 
+      objectReference: {fileID: 815416450}
+    - target: {fileID: 2867823841202227938, guid: 62cc72a6b296be148ae0800306fec84b, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 815416453}
     - target: {fileID: 3073605121436167986, guid: 62cc72a6b296be148ae0800306fec84b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.45350236
