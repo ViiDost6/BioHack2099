@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class SceneManager : MonoBehaviour
 
     IEnumerator CargarEscena()
     {
-        AsyncOperation carga = SceneManager.LoadSceneAsync(nombreEscena, LoadSceneMode.Additive);
+        AsyncOperation carga = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(nombreEscena, LoadSceneMode.Additive);
 
         while (!carga.isDone)
         {
@@ -22,9 +23,9 @@ public class SceneManager : MonoBehaviour
         }
 
         // Establecer la nueva escena como activa
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(nombreEscena));
+        UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName(nombreEscena));
 
         // Descargar la escena actual (menú)
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
     }
 }

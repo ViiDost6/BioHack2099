@@ -1,6 +1,4 @@
 using Unity.AI.Navigation;
-using Unity.Entities.UniversalDelegates;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -117,10 +115,10 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, 2.0f);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         //Check if the enemy collides with the player's attack
-        if (other.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0)
+        if (other.gameObject.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0)
         {
             // Get the damage value from the player's weapon manager
             WeaponManager weaponManager = player.GetComponent<WeaponManager>();
@@ -132,14 +130,9 @@ public class Enemy : MonoBehaviour
             // Call the TakeDamage method with the damage value from the player's weapon manager
             TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        // Check if the enemy exits the trigger collider of the player's attack
-        if (other.CompareTag("Player"))
+        else
         {
-            ResetDamageFlag(); // Reset the damage flag
+            ResetDamageFlag(); // Reset the damage flag if the enemy is not hit by the player's attack
         }
     }
 
