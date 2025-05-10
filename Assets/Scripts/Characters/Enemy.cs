@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     private PlayerHealth playerHealth; // Reference to the player's health component
     private bool isDead = false; // Flag to check if the enemy is dead
     private bool hasTakenDamage = false; // Flag to check if the enemy has taken damage
-    private int damage = 50;
+    private int damage = 50; // Default value
 
     void Start()
     {
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
         navMesh = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component attached to this enemy
         navMesh.SetDestination(player.transform.position); // Set the destination of the NavMeshAgent to the player's position
         navMesh.isStopped = false;
+        damage = 50; // Set the default damage value
     }
 
 
@@ -131,13 +132,6 @@ public class Enemy : MonoBehaviour
         //Check if the enemy collides with the player's attack
         if (other.CompareTag("Arma") && !hasTakenDamage && player.GetComponentInChildren<Animator>().GetInteger("Hit") > 0 && hasTakenDamage == false)
         {
-            // Get the damage value from the player's weapon manager
-            WeaponManager weaponManager = player.GetComponent<WeaponManager>();
-            if (weaponManager != null)
-            {
-                damage = weaponManager.damage; // Get the damage value from the player's weapon manager
-            }
-
             // Call the TakeDamage method with the damage value from the player's weapon manager
             TakeDamage(damage); // Call the TakeDamage method with the damage value from the player's weapon manager
         }
@@ -148,5 +142,10 @@ public class Enemy : MonoBehaviour
     private void ResetDamageFlag()
     {
         hasTakenDamage = false;
+    }
+
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage; // Update the damage value
     }
 }

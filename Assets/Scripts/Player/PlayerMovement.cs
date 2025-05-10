@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    private AudioManager audioManager;
 
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
@@ -48,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
         walkSpeed = moveSpeed;
         sprintSpeed = 4;
         animator.SetBool("GreatSword", true);
+
+        audioManager = GetComponentInParent<AudioManager>();
     }
 
     private void Update()
@@ -59,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
         StateHandler();
+
+        AudioController();
     }
 
     private void FixedUpdate()
@@ -132,11 +137,15 @@ public class PlayerMovement : MonoBehaviour
 
         // on ground
         if (grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
+        }
         // in air
         else if (!grounded)
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
     }
 
     private void SpeedControl()
@@ -157,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        audioManager.PlayAudio(1, false);
     }
     private void ResetJump()
     {
@@ -171,5 +181,23 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetFloat("Direction", targetHorizonal);
         animator.SetFloat("Speed", targetVertical);
+    }
+
+    private void AudioController()
+    {
+        // Check if the player is moving
+        if ((horizontalInput != 0 || verticalInput != 0) && grounded)
+        {
+            // Play the first audio clip in a loop if it's not already playing
+            if (!audioManager.isPlaying)
+            {
+                audioManager.PlayAudio(0, true); // Play in loop
+            }
+        }
+        else
+        {
+            // Stop the audio if the player is not moving
+            audioManager.StopAudio();
+        }
     }
 }

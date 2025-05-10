@@ -4,6 +4,7 @@ using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class WeaponHabilities : MonoBehaviour
 {
@@ -204,9 +205,25 @@ public class WeaponHabilities : MonoBehaviour
             // Apply force to the bullet
             bulletRb.AddForce(forceDirection * bulletInstance.GetComponent<Bullet>().speed, ForceMode.Impulse);
 
-            // Destroy the bullet after its lifetime
-            Destroy(bulletInstance, bulletInstance.GetComponent<Bullet>().lifeTime);
+            // Start a coroutine to manage the "Hit" parameter while the bullet is alive
+            StartCoroutine(ManageHitWhileBulletAlive(bulletInstance));
         }
+    }
+
+    // Coroutine to manage the "Hit" parameter
+    private IEnumerator ManageHitWhileBulletAlive(GameObject bulletInstance)
+    {
+        // Set "Hit" to 1
+        animator.SetInteger("Hit", 1);
+
+        // Wait until the bullet is destroyed
+        while (bulletInstance != null)
+        {
+            yield return null; // Wait for the next frame
+        }
+
+        // Reset "Hit" to 0 after the bullet is destroyed
+        animator.SetInteger("Hit", 0);
     }
     
 }

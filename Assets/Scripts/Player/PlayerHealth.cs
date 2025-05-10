@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class PlayerHealth : MonoBehaviour
     public Canvas playerUI;
     public Image healthBar;
 
+    public Canvas deathScreen;
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -23,6 +27,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
+        if (currentHealth <= 0 && !isDead)
+        {
+            DeathScreen(); // Call death screen method
+        }
+
         if (!isDead)
         {
             healthBar.fillAmount = currentHealth / maxHealth; // Update health bar
@@ -34,5 +43,11 @@ public class PlayerHealth : MonoBehaviour
             }
         }
         
+    }
+
+    private void DeathScreen()
+    {
+        isDead = true; // Set player as dead
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("DeathScreen", LoadSceneMode.Additive);
     }
 }

@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class SceneManager : MonoBehaviour
 {
     public string nombreEscena; // Nombre de la escena a cargar
+    public void Start()
+    {
+        //Muestra el mouse
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
     public void Salir()
     {
         Application.Quit();

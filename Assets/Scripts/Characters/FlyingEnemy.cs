@@ -41,7 +41,7 @@ public class FlyingEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Arma"))
         {
             float damage = player.GetComponentInChildren<WeaponManager>().damage; // Assuming the weapon has a damage property
-            health -= damage * 5; // Reduce enemy health by the weapon damage
+            health -= 50; // Reduce enemy health by half
             Debug.Log("Enemy hit! Health: " + health); // Log the enemy's health for debugging
             if (health <= 0)
             {

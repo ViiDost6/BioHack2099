@@ -99,6 +99,11 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().walkSpeed = 2;
             player.GetComponent<PlayerMovement>().sprintSpeed = 4;
             damage = 50;
+            var enemy = FindFirstObjectByType<Enemy>();
+            if (enemy != null)
+            {
+                enemy.SetDamage(damage);
+            }
             animator.SetBool("GreatSword", true);
             animator.SetBool("Rapier", false);
             animator.SetBool("Gun", false);
@@ -111,6 +116,11 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().walkSpeed = 4;
             player.GetComponent<PlayerMovement>().sprintSpeed = 6;
             damage = 25;
+            var enemy = FindFirstObjectByType<Enemy>();
+            if (enemy != null)
+            {
+                enemy.SetDamage(damage);
+            }
             animator.SetBool("GreatSword", false);
             animator.SetBool("Rapier", true);
             animator.SetBool("Gun", false);
@@ -124,6 +134,11 @@ public class WeaponManager : MonoBehaviour
             player.GetComponent<PlayerMovement>().walkSpeed = 6;
             player.GetComponent<PlayerMovement>().sprintSpeed = 8;
             damage = 10;
+            var enemy = FindFirstObjectByType<Enemy>();
+            if (enemy != null)
+            {
+                enemy.SetDamage(damage);
+            }
             animator.SetBool("GreatSword", false);
             animator.SetBool("Rapier", false);
             animator.SetBool("Gun", true);
