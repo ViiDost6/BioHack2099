@@ -1,4 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI; // Added to access UI elements like Image
