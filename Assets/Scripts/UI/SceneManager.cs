@@ -6,26 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour
 {
-    public string nombreEscena = "JuegoPrincipal";
-
-    public void IniciarCarga()
+    public string nombreEscena; // Nombre de la escena a cargar
+    public void Salir()
     {
-        StartCoroutine(CargarEscena());
+        Application.Quit();
+        Debug.Log("Saliendo del juego...");
     }
 
-    IEnumerator CargarEscena()
+    public void Juego()
     {
-        AsyncOperation carga = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(nombreEscena, LoadSceneMode.Additive);
-
-        while (!carga.isDone)
-        {
-            yield return null;
-        }
-
-        // Establecer la nueva escena como activa
-        UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.SceneManager.GetSceneByName(nombreEscena));
-
-        // Descargar la escena actual (menú)
-        UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+        Debug.Log("Cargando la escena de juego...");
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(nombreEscena, LoadSceneMode.Single);
     }
 }

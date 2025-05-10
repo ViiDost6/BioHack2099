@@ -5970,11 +5970,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navMesh: {fileID: 0}
-  detectionRange: 5
-  attackRange: 1
+  detectionRange: 10
+  attackRange: 3
   attackDamage: 30
   health: 100
   attackCooldown: 1
+  returnPoint: {fileID: 0}
   animator: {fileID: 0}
 --- !u!136 &113071992067890993
 CapsuleCollider:
@@ -5996,9 +5997,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.38
-  m_Height: 1.7252426
+  m_Height: 1.3448868
   m_Direction: 2
-  m_Center: {x: 0, y: 0.7385315, z: 0.3626213}
+  m_Center: {x: 0, y: 0.7385315, z: 0.95944595}
 --- !u!195 &8267218794614775134
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6013,7 +6014,7 @@ NavMeshAgent:
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 240
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
